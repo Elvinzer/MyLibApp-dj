@@ -1,0 +1,24 @@
+import {execFileSync} from 'node:child_process';import {readFileSync,writeFileSync,mkdirSync,copyFileSync} from 'node:fs';import assert from 'node:assert/strict';
+const session=execFileSync('agent-browser',['session','id','--scope','worktree','--prefix','next-dev-loop'],{encoding:'utf8'}).trim();const url=JSON.parse(readFileSync('.runtime/instance.json')).url;
+function cmd(...args){const r=JSON.parse(execFileSync('agent-browser',['--session',session,'--restore','--json',...args],{encoding:'utf8',timeout:35000}));if(!r.success)throw new Error(JSON.stringify(r.error));return r.data;}
+const ev=s=>cmd('eval',s).result;
+const folder='openspec/changes/create-local-music-library/evidence';mkdirSync(folder,{recursive:true});
+cmd('open',url);cmd('reload');cmd('wait','.track-title');cmd('set','viewport','1440','900');
+const audit={library:cmd('a11y')};assert.equal(audit.library.counts.violations,0);
+let shot=cmd('screenshot');copyFileSync(shot.path,folder+'/library.png');
+cmd('click','.track-title');cmd('wait','.handle.start');
+audit.detail=cmd('a11y');assert.equal(audit.detail.counts.violations,0);assert.equal(audit.detail.counts.incomplete,0);
+cmd('set','media','dark','reduced-motion');
+const animation=ev(`getComputedStyle(document.querySelector('.primary')).transitionDuration`);assert.equal(animation,'0s');
+cmd('set','media','dark');
+ev(`document.documentElement.style.zoom='2'`);assert.ok(ev(`document.documentElement.scrollWidth<=innerWidth`));
+shot=cmd('screenshot');copyFileSync(shot.path,folder+'/zoom-200.png');ev(`document.documentElement.style.zoom=''`);
+cmd('set','viewport','1024','768');assert.ok(ev(`document.documentElement.scrollWidth<=innerWidth`));
+cmd('scroll','down','450');cmd('focus','[aria-label="Début de sélection"]');
+assert.ok(ev(`(()=>{const r=document.activeElement.getBoundingClientRect(),p=document.querySelector('footer').getBoundingClientRect();return r.y>=0&&r.bottom<=p.y})()`));
+cmd('set','viewport','1440','900');cmd('scrollintoview','h1');
+shot=cmd('screenshot');copyFileSync(shot.path,folder+'/detail.png');
+writeFileSync(folder+'/accessibility.json',JSON.stringify(audit,null,2));
+writeFileSync('.runtime/final-browser.json',JSON.stringify({violations:0,incomplete:0,reducedMotion:true,magnification200:true,focusNotObscured:true},null,2));
+console.log('PASS final accessibility, reduced motion, 200% zoom, focus visibility');
+cmd('click','.back-button');cmd('wait','.track-title');

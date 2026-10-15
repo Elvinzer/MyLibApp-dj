@@ -1,0 +1,13 @@
+certifi==2026.7.22
+charset-normalizer==3.5.2
+defusedxml==0.7.1
+idna==3.20
+ifaddr==0.2.0
+librespot @ git+https://github.com/kokarare1212/librespot-python.git@683d9e76f91ba7ae03919494dac8d899ca505651
+protobuf==3.20.1
+pycryptodomex==3.24.1
+PyOgg==0.6.14a1
+requests==2.34.2
+urllib3==2.8.0
+websocket-client==1.9.2
+zeroconf==0.151.5
