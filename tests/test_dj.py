@@ -168,6 +168,10 @@ def test_worker_recovery_priority_failure_and_override(tmp_path,monkeypatch):
         assert styles.effective(store.get('job'))==[DEEP]
         source=media/'Test_job_Deep_House_160.2.webm'
         playback=media/'preview_Test_job_Deep_House_160.2.m4a'
+        # Analysis is published before the independent media rename finishes.
+        # Wait for its persisted result before asserting file-name metadata.
+        wait_until(lambda:store.get('job').get('mediaSource')==source.name
+                   and store.get('job').get('mediaPlayback')==playback.name)
         assert source.read_bytes()==b'original source'
         assert playback.read_bytes()==b'playback audio'
         assert store.get('job')['mediaSource']==source.name

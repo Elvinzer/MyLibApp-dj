@@ -73,6 +73,19 @@ restent en streaming ; ses suggestions ne garantissent ni similarité sonore,
 ni compatibilité harmonique. Un titre externe nécessite un lien d’import pris
 en charge pour obtenir un fichier dans MyLib. Rekordbox n’est pas intégré.
 
+## Ajuster le son
+
+Ouvrez **Égaliseur** dans le lecteur, activez-le et choisissez un preset
+(Rock, Techno, House, Voix…). **Réglage personnalisé** donne accès aux dix
+bandes, au clavier ou par saisie numérique. **Enregistrer sous…** conserve
+votre propre preset ; un preset personnel peut être renommé, remplacé ou supprimé.
+
+Désactiver permet de comparer sans perdre la courbe ; **Remettre à plat** remet
+les bandes à zéro. Fermer le panneau conserve le réglage. Les préférences sont
+conservées dans ce navigateur, pour cette adresse locale. Le niveau est ajusté
+pour limiter la saturation. Si un extrait ne permet pas le traitement, il reste
+lisible sans effet et MyLib le signale. Les fichiers et exports restent intacts.
+
 ## Où se trouve ma musique ?
 
 Les fichiers et playlists restent sur votre Mac dans :

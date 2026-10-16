@@ -74,6 +74,18 @@ suggestions do not guarantee acoustic similarity or harmonic compatibility.
 An external title requires a supported import link to obtain a local file in
 MyLib. Rekordbox integration is not included.
 
+## Adjust the sound
+
+Open **Égaliseur** (Equalizer) in the player, enable it and choose a preset.
+**Réglage personnalisé** exposes ten bands with keyboard and numeric controls.
+**Enregistrer sous…** saves a personal preset, which can be renamed, explicitly
+replaced or deleted. Disabling preserves your curve for comparison;
+**Remettre à plat** resets all bands. Closing preserves the current sound.
+
+Preferences stay in this browser for the current local address. Automatic level
+compensation limits saturation. Unsupported external previews remain playable
+without equalization, with an explanation. Original files and exports are unchanged.
+
 ## Where is my music stored?
 
 Your tracks and playlists stay on your Mac in:

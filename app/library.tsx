@@ -40,6 +40,7 @@ import { apiFetch } from "../lib/api-fetch";
 import { Recommendations, StyleBadge } from "./dj";
 import SpotifyConnection from "./spotify-connection";
 import Discovery, { type Idea } from "./discovery";
+import Equalizer from "./equalizer";
 import { selectionTempo, formatTime } from "../lib/tempo.mjs";
 
 type Track = {
@@ -155,6 +156,10 @@ export default function Library() {
   const [spotifyNeeded, setSpotifyNeeded] = useState(false);
   const [discoverySource, setDiscoverySource] = useState<string | null>(null);
   const [previewTrack, setPreviewTrack] = useState<Track | null>(null);
+  const [previewDirect, setPreviewDirect] = useState(false);
+  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(
+    null,
+  );
   const [analysisMap, setAnalysisMap] = useState<Record<string, Analysis>>({}),
     [viewTrack, setViewTrack] = useState<string | null>(null);
   const [current, setCurrent] = useState<string | null>(null),
@@ -188,6 +193,10 @@ export default function Library() {
     playRequested = useRef(false),
     dialog = useRef<HTMLDialogElement>(null),
     opener = useRef<HTMLElement | null>(null);
+  const attachAudio = useCallback((element: HTMLAudioElement | null) => {
+    audio.current = element;
+    setAudioElement(element);
+  }, []);
   const currentTrack =
       tracks.find((t) => t.id === current) ||
       (previewTrack?.id === current ? previewTrack : undefined),
@@ -297,7 +306,7 @@ export default function Library() {
   }, [tracks, analysisMap]);
   useEffect(() => {
     if (audio.current) audio.current.volume = volume;
-  }, [volume]);
+  }, [volume, audioElement]);
   useEffect(() => {
     if (!current || !audio.current) return;
     const a = audio.current;
@@ -318,7 +327,7 @@ export default function Library() {
         );
     }
     return () => a.removeEventListener("loadedmetadata", restore);
-  }, [current]);
+  }, [current, previewDirect]);
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
       const el = e.target as HTMLElement;
@@ -531,6 +540,7 @@ export default function Library() {
         coverUrl: item.cover,
         storeUrl: item.url,
       });
+      setPreviewDirect(false);
       setTime(0);
       setQueue([]);
       setLoop(false);
@@ -542,7 +552,7 @@ export default function Library() {
   );
   function toggle() {
     if (!audio.current || !current) return;
-    if (playing) audio.current.pause();
+    if (!audio.current.paused) audio.current.pause();
     else void audio.current.play().catch(() => setError("Lecture impossible."));
   }
   function advance(delta: number) {
@@ -1577,20 +1587,35 @@ export default function Library() {
             <span>{formatTime(currentTrack?.duration || 0)}</span>
           </div>
         </div>
-        <div className="volume">
-          <Volume2 size={18} />
-          <input
-            aria-label="Volume"
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value={volume}
-            onChange={(e) => setVolume(Number(e.target.value))}
+        <div className="player-sound">
+          <Equalizer
+            audio={audioElement}
+            external={!!currentTrack?.previewUrl && previewDirect}
+            playing={playing}
+            onToggle={toggle}
           />
+          <div className="volume">
+            <Volume2 size={18} />
+            <input
+              aria-label="Volume"
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value={volume}
+              onChange={(e) => setVolume(Number(e.target.value))}
+            />
+          </div>
         </div>
       </footer>
       <audio
+        key={
+          current?.startsWith("preview:")
+            ? previewDirect
+              ? "preview-direct"
+              : "preview-equalized"
+            : "local-equalized"
+        }
         onLoadedMetadata={() => {
           if (
             current?.startsWith("preview:") &&
@@ -1601,7 +1626,10 @@ export default function Library() {
               old ? { ...old, duration: audio.current!.duration } : old,
             );
         }}
-        ref={audio}
+        ref={attachAudio}
+        crossOrigin={
+          currentTrack?.previewUrl && !previewDirect ? "anonymous" : undefined
+        }
         src={
           currentTrack?.previewUrl ||
           (current ? `/api/tracks/${current}/media` : undefined)
@@ -1610,6 +1638,12 @@ export default function Library() {
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         onError={() => {
+          if (current?.startsWith("preview:") && !previewDirect) {
+            restoreTime.current = audio.current?.currentTime || 0;
+            playRequested.current = true;
+            setPreviewDirect(true);
+            return;
+          }
           if (current) {
             setPlaying(false);
             setError(
@@ -1629,11 +1663,16 @@ export default function Library() {
           )
             a.currentTime = s.start;
           setTime(a.currentTime);
-          if (current && !current.startsWith("preview:"))
-            localStorage.setItem(
-              "mylib-player",
-              JSON.stringify({ id: current, time: a.currentTime }),
-            );
+          if (current && !current.startsWith("preview:")) {
+            try {
+              localStorage.setItem(
+                "mylib-player",
+                JSON.stringify({ id: current, time: a.currentTime }),
+              );
+            } catch {
+              /* Playback remains available when local storage is unavailable. */
+            }
+          }
         }}
         onEnded={() => {
           const s = selectionRef.current;

@@ -7,7 +7,7 @@
     "start": "node scripts/launch.mjs",
     "build": "next build",
     "typecheck": "tsc --noEmit",
-    "test": "node --test tests/tempo.test.mjs tests/ports.test.mjs && .venv/bin/python -m pytest tests -q",
+    "test": "node --test tests/tempo.test.mjs tests/ports.test.mjs tests/equalizer.test.mjs && .venv/bin/python -m pytest tests -q",
     "package:mac": ".venv/bin/python scripts/package-mac.py"
   },
   "dependencies": {
