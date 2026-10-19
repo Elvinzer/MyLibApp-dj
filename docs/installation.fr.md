@@ -29,30 +29,47 @@ Prévoyez plusieurs gigaoctets d’espace libre et une connexion Internet.
    - L’installation télécharge Node.js, Python 3.13, FFmpeg, MyLib et son modèle
      d’analyse. Le Terminal affiche sa progression.
 4. Quand l’installation est terminée, MyLib démarre et ouvre votre navigateur.
+   C’est la fenêtre du navigateur qui affiche MyLib ; gardez aussi la fenêtre
+   Terminal ouverte en arrière-plan.
 
 Le code de l’application se trouve dans `~/Applications/MyLibApp`. Les morceaux,
 playlists, analyses et réglages de connexion Spotify restent dans
 `~/Library/Application Support/MyLibApp/`.
 
-## Utiliser MyLib
+## Retrouver et relancer MyLib
+
+Après l’installation, le code se trouve dans **Applications → MyLibApp**, à
+l’intérieur de votre dossier personnel. Ce n’est pas le dossier Applications
+principal du Mac.
+
+Pour les prochains lancements, dans le Finder :
+
+1. Choisissez **Aller → Dossier de départ**.
+2. Ouvrez le dossier **Applications**, puis **MyLibApp**.
+3. Double-cliquez sur **MyLib.command**. Une fenêtre Terminal démarre MyLib et
+   votre navigateur affiche l’application.
+
+Si vous ne voyez pas **Applications**, choisissez **Aller → Aller au dossier…**,
+collez `~/Applications/MyLibApp`, puis appuyez sur Entrée. Vous pouvez aussi
+utiliser le raccourci **Maj + Commande + G** dans le Finder et coller ce chemin.
 
 Gardez la fenêtre Terminal ouverte pendant l’écoute. Fermer seulement l’onglet du
 navigateur ne suffit pas à arrêter MyLib. Pour arrêter MyLib, cliquez dans la
 fenêtre Terminal et appuyez sur **Ctrl+C**.
 
-Pour les lancements suivants, ouvrez dans le Finder le dossier
-`~/Applications/MyLibApp`, puis double-cliquez sur **MyLib.command**. Si vous
-ne trouvez pas ce dossier, choisissez dans le Finder **Aller → Aller au
-dossier…**, saisissez `~/Applications/MyLibApp`, puis appuyez sur Entrée.
-
 ## Mettre à jour ou réparer
 
-Relancez la même commande d’installation dans Terminal. Elle récupère la version
-la plus récente du projet et réinstalle ses dépendances. Vos morceaux, playlists,
-analyses et connexions Spotify restent conservés. Vous pouvez aussi relancer
-cette commande si une installation a été interrompue.
+1. Si MyLib est ouverte, cliquez dans sa fenêtre Terminal et appuyez sur
+   **Ctrl+C** pour l’arrêter.
+2. Dans Terminal, copiez et exécutez de nouveau la même commande :
 
-Si MyLib est déjà ouverte, arrêtez-la avec **Ctrl+C** avant la mise à jour.
+   ```sh
+   curl -fsSL https://raw.githubusercontent.com/Elvinzer/MyLibApp-dj/main/scripts/install-mac.sh | /bin/bash
+   ```
+
+Elle récupère la version la plus récente du projet, réinstalle ses dépendances
+et relance MyLib. Vos morceaux, playlists, analyses et connexions Spotify restent
+conservés. Cette commande peut également réparer une installation interrompue.
 
 ## En cas de problème
 

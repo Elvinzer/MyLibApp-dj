@@ -27,29 +27,44 @@ you have an Internet connection and several gigabytes of free space.
      **Nothing appears as you type**; this is normal.
    - Setup downloads Node.js, Python 3.13, FFmpeg, MyLib and its analysis model.
      Terminal shows its progress.
-4. When setup finishes, MyLib starts and opens your browser.
+4. When setup finishes, MyLib starts and opens your browser. MyLib appears in
+   the browser; keep the Terminal window open in the background too.
 
 The app files are stored in `~/Applications/MyLibApp`. Tracks, playlists,
 analysis and Spotify connection data remain in
 `~/Library/Application Support/MyLibApp/`.
 
-## Use MyLib
+## Find and reopen MyLib
+
+After setup, the app files are in **Applications → MyLibApp** inside your home
+folder. This is different from the Mac’s main Applications folder.
+
+For later launches in Finder:
+
+1. Choose **Go → Home**.
+2. Open **Applications**, then **MyLibApp**.
+3. Double-click **MyLib.command**. A Terminal window starts MyLib and your
+   browser opens the app.
+
+If you do not see **Applications**, choose **Go → Go to Folder…**, enter
+`~/Applications/MyLibApp`, and press Return. You can also press
+**Shift + Command + G** in Finder and paste that path.
 
 Keep the Terminal window open while listening. Closing only the browser tab does
 not stop MyLib. To stop it, click the Terminal window and press **Ctrl+C**.
 
-For later launches, open `~/Applications/MyLibApp` in Finder and double-click
-**MyLib.command**. If you cannot find the folder, choose **Go → Go to Folder…**
-in Finder, enter `~/Applications/MyLibApp`, and press Return.
-
 ## Update or repair
 
-Run the same installation command in Terminal again. It downloads the latest
-project version and reinstalls its dependencies. Your tracks, playlists,
-analysis and Spotify connection remain in place. You can also rerun it if an
-installation was interrupted.
+1. If MyLib is open, click its Terminal window and press **Ctrl+C** to stop it.
+2. In Terminal, copy and run the same command again:
 
-If MyLib is already running, stop it with **Ctrl+C** before updating.
+   ```sh
+   curl -fsSL https://raw.githubusercontent.com/Elvinzer/MyLibApp-dj/main/scripts/install-mac.sh | /bin/bash
+   ```
+
+It downloads the latest project version, reinstalls its dependencies and starts
+MyLib again. Your tracks, playlists, analysis and Spotify connection stay in
+place. You can also use this command to repair an interrupted installation.
 
 ## Troubleshooting
 

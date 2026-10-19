@@ -31,10 +31,14 @@ Open Terminal, copy this line and press Return:
 curl -fsSL https://raw.githubusercontent.com/Elvinzer/MyLibApp-dj/main/scripts/install-mac.sh | /bin/bash
 ```
 
-The app starts automatically. Depending on your Mac, macOS may offer to install
+The app starts automatically. To find it later, in Finder choose **Go → Home →
+Applications → MyLibApp**, then double-click **MyLib.command**. This Applications
+folder is inside your home folder. Keep the Terminal window open while listening;
+press **Ctrl+C** to stop MyLib. Depending on your Mac, Apple may offer to install
 its command-line tools and Homebrew may ask for your account password. The
-[installation guide](docs/installation.en.md) explains these prompts, later
-launches and updates.
+[installation guide](docs/installation.en.md) explains these prompts and updates.
+To update MyLib, stop it with **Ctrl+C** and run the same installation command
+again; your data is kept.
 
 ## Your first track
 
