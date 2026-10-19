@@ -32,7 +32,7 @@ curl -fsSL https://raw.githubusercontent.com/Elvinzer/MyLibApp-dj/main/scripts/i
 ```
 
 L’application démarre automatiquement. Pour la retrouver plus tard, dans le
-Finder choisissez **Aller → Dossier de départ → Applications → MyLibApp**, puis
+Finder choisissez **→ Applications → MyLib.App**, puis
 double-cliquez sur **MyLib.command**. Ce dossier Applications se trouve dans
 votre dossier personnel. Laissez la fenêtre Terminal ouverte pendant l’écoute ;
 **Ctrl+C** arrête MyLib. Selon votre Mac, Apple peut demander d’installer ses
