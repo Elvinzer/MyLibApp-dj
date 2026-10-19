@@ -6,51 +6,35 @@ Your personal music library for preparing DJ sets on a Mac: YouTube, SoundCloud
 and Spotify imports, local playback, tempo (BPM) and style analysis, playlists,
 similar-track discovery and MP3 export.
 
-**Start here: [install and launch MyLib, step by step](docs/installation.en.md).**
-No programming knowledge or GitHub account is required. Initial setup involves
-a few guided commands; after creating the Mac shortcut, you can open the app
-with a double-click. The current application interface is in French; the guide
-explains the main button names in English.
+**Start here: [install and launch MyLib](docs/installation.en.md).**
+No programming knowledge or GitHub account is required. One command installs
+MyLib and its required tools; the app starts automatically when setup finishes.
+The current application interface is in French; the guide explains the main
+button names in English.
 
 ## What you need
 
 - A **Mac with an Apple Silicon chip** (M1, M2, M3 or a later generation).
-- **macOS 15 or newer** for the documented Homebrew setup.
+- **macOS 15 or newer**.
 - Internet access to install tools and import tracks.
-- **Node.js 24+**, **Python 3.13** and **FFmpeg**; the guide explains how to install them.
+- Node.js, Python 3.13 and FFmpeg are installed by the setup command.
 - A **Spotify Premium account only if you use Spotify imports**.
 
-Windows, Linux and Intel Macs have not been validated for this version. This
-repository contains source code, not a universal installer or a prebuilt Mac app.
+Windows, Linux and Intel Macs have not been validated for this version. Setup
+downloads the public source code and configures MyLib on your Mac.
 
 ## Quick installation
 
-If you are already comfortable using Terminal:
+Open Terminal, copy this line and press Return:
 
 ```sh
-# After installing Homebrew:
-brew install node python@3.13 ffmpeg
-
-git clone https://github.com/Elvinzer/MyLibApp-dj.git
-cd MyLibApp-dj
-zsh Installer.command
-zsh MyLib.command
+curl -fsSL https://raw.githubusercontent.com/Elvinzer/MyLibApp-dj/main/scripts/install-mac.sh | /bin/bash
 ```
 
-Your browser opens automatically. Keep Terminal open while using the app and
-press **Ctrl+C** to stop it.
-
-To create **MyLib.app** in Applications and a Desktop shortcut afterwards:
-
-```sh
-xcode-select --install
-# Wait until Apple's command-line tools finish installing before continuing.
-npm run package:mac
-```
-
-If the Apple tools are already installed, the first command will tell you.
-The [full guide](docs/installation.en.md) explains every step, including how to
-download the project without Git using GitHub’s **Code → Download ZIP** button.
+The app starts automatically. Depending on your Mac, macOS may offer to install
+its command-line tools and Homebrew may ask for your account password. The
+[installation guide](docs/installation.en.md) explains these prompts, later
+launches and updates.
 
 ## Your first track
 

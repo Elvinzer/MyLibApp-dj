@@ -3,60 +3,24 @@
 Votre bibliothèque musicale personnelle sur Mac : import YouTube / SoundCloud,
 lecture locale, BPM global et de sélection, playlists et export MP3. Aucun compte.
 
-## Lancer l’application
+## Installer et lancer
 
-Double-cliquez sur **MyLib.app** dans `/Applications`, ou sur son raccourci
-**MyLib.app** sur le Bureau. Vous pouvez glisser l’application dans le Dock.
-Elle lance les services en arrière-plan et ouvre votre navigateur habituel,
-sans VS Code ni fenêtre de terminal. Recliquez sur l’icône pour rouvrir l’interface.
-Le menu MyLib → Quitter MyLib arrête les services qu’elle a démarrés.
+Sur Apple Silicon avec macOS 15 ou plus récent, ouvrez Terminal et exécutez la
+commande affichée dans le [guide d’installation](installation.fr.md). Elle
+installe Homebrew si nécessaire, puis Node.js 24+, Python 3.13 et FFmpeg, récupère
+le code, prépare `.venv`, installe `requirements.lock`, télécharge et vérifie le
+modèle de style, prépare le moteur Spotify et construit l’interface.
 
-L’application utilise sa propre copie des fichiers d’exécution dans
-`~/Library/Application Support/MyLibApp/Runtime/`. Elle reste utilisable si le
-dossier de développement est fermé ou déplacé. Vos morceaux et playlists restent
-stockés dans le dossier de données, en dehors de l’application et du runtime.
-Node.js, Python Homebrew et FFmpeg déjà installés sur ce Mac restent nécessaires ;
-ce bundle est une installation locale, pas un installeur portable pour un autre Mac.
+L’installation démarre MyLib à la fin. Gardez la fenêtre Terminal ouverte pendant
+l’utilisation ; **Ctrl+C** arrête les services lancés par MyLib. Pour les
+lancements suivants, ouvrez `~/Applications/MyLibApp` et double-cliquez sur
+**MyLib.command**. Relancez la commande d’installation du guide pour actualiser
+ou réparer MyLib. Les données restent dans
+`~/Library/Application Support/MyLibApp/`, séparées du code installé.
 
-### Mises à jour au lancement
-
-À chaque lancement ou réouverture depuis le Dock/Bureau, MyLib compare le code
-local du projet avec sa version installée. Si une modification est détectée,
-une fenêtre propose **Mettre à jour et ouvrir** ou **Plus tard**. La préparation
-se fait en arrière-plan avec un indicateur, puis MyLib redémarre automatiquement.
-Aucun terminal et aucune commande ne sont nécessaires.
-
-La mise à jour prépare une copie isolée, installe les dépendances modifiées,
-construit la version production et vérifie son démarrage avant de la valider.
-En cas d'échec de compilation ou de démarrage, l'ancienne version est conservée
-ou restaurée. La bibliothèque, les fichiers audio et les playlists ne sont
-jamais remplacés par le mécanisme de mise à jour. Deux mises à jour simultanées
-sont empêchées par un verrou.
-
-Les changements sont détectés par le contenu des fichiers de l'app, du moteur
-audio, du lanceur et des dépendances. Les seules modifications de documentation,
-de tests et de caches ne déclenchent pas d'alerte. Si le dossier de développement
-est déplacé ou indisponible, l'app installée continue de fonctionner ; il faut
-recréer le bundle depuis le nouveau dossier pour rétablir ce lien de mise à jour.
-Les outils Swift déjà installés sur ce Mac sont utilisés pour reconstruire le
-lanceur natif lors d'une mise à jour.
-
-Pour une réinstallation manuelle : quitter MyLib, puis exécuter `npm run build`
-et `npm run package:mac` depuis le projet. Les copies de préparation utilisent
-les clones APFS afin de partager les blocs disque non modifiés.
-
-`MyLib.command` reste disponible comme lanceur alternatif pour le développement.
-Fermer un onglet ne supprime aucune musique.
-
-## Première installation
-
-Prérequis : macOS Apple Silicon, Node 24+, Python 3.13, FFmpeg et ffprobe.
-Avec Homebrew : `brew install node python@3.13 ffmpeg`.
-Le navigateur recommandé est Chrome ou Safari à jour.
-
-Double-cliquez sur **Installer.command**. Il prépare `.venv`, installe les versions
-Python de `requirements.lock`, exécute `npm ci` et construit l’interface.
-Les dépendances ne sont pas installées silencieusement à chaque lancement.
+Selon la configuration du Mac, la première installation peut afficher une
+demande Apple pour les outils de ligne de commande ou demander le mot de passe
+de la session Mac pour Homebrew.
 
 Pour développer : `npm run dev`. Le mode dev utilise Next.js 16.4.1 et Turbopack.
 Le build production utilise `.next-build`, séparé du cache `.next` du serveur dev.
@@ -208,8 +172,8 @@ Les MP3 déjà téléchargés par le navigateur restent intacts.
   Après une mise à jour, revalidez les imports et mettez `requirements.lock` à jour.
 - En cas de disque plein, libérez de l’espace et reprenez le traitement.
 - Si un port est utilisé par une autre application, le lanceur choisit un port libre.
-- Si un prérequis est absent, réexécutez l’installation ; aucun processus étranger
-  ne sera arrêté par le lanceur.
+- Si un prérequis est absent, réexécutez la commande d’installation du guide ;
+  aucun processus étranger ne sera arrêté par le lanceur.
 
 ## Validation
 
@@ -265,7 +229,7 @@ pendant la connexion.
 Le moteur [librespot-python](https://github.com/kokarare1212/librespot-python)
 est installé au commit fixé dans `requirements-spotify.lock`, dans
 `.spotify-venv`, séparément du moteur d’analyse musicale pour isoler leurs versions
-de Protobuf. `Installer.command` et `npm run package:mac` le préparent via
-`scripts/install-spotify.py`. L’accès dépend du fonctionnement de Spotify et du
+de Protobuf. `Installer.command` le prépare via `scripts/install-spotify.py`.
+L’accès dépend du fonctionnement de Spotify et du
 client librespot. Les tests `tests/test_spotify.py` vérifient la validation des
 liens, la confidentialité, le callback OAuth, les erreurs et l’export local.
