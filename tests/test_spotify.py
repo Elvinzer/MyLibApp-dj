@@ -104,7 +104,10 @@ def test_spotify_import_uses_direct_worker_and_exports_locally(tmp_path, monkeyp
     def run(args, track_id, timeout=900):
         commands.append(args)
         if args[0] == 'spotify-fixture':
-            subprocess.run(['ffmpeg','-v','error','-f','lavfi','-i','sine=frequency=440:duration=10','-c:a','libvorbis',args[1]],check=True,capture_output=True)
+            subprocess.run([
+                'ffmpeg', '-v', 'error', '-f', 'lavfi', '-i', 'sine=frequency=440:duration=10',
+                '-ac', '2', '-c:a', 'vorbis', '-strict', 'experimental', args[1],
+            ], check=True, capture_output=True)
             return json.dumps({'title':'50 DUB','author':'KRITIKAL, Jman','duration':metadata_duration}).encode()
         return original_run(args, track_id, timeout)
     monkeypatch.setattr(main, 'run', run)
