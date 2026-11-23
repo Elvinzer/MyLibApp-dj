@@ -73,6 +73,10 @@ conservés. Cette commande peut également réparer une installation interrompue
 
 ## En cas de problème
 
+- **La mise à jour échoue dans MyLib.app**. Quittez l’application puis
+  [relancez la commande d’installation](#mettre-à-jour-ou-réparer).
+  Pour les prochains lancements, ouvrez **MyLib.command** depuis
+  `~/Applications/MyLibApp`.
 - **Une fenêtre Apple apparaît** : acceptez l’installation des outils de ligne
   de commande et attendez qu’elle se termine. Si Terminal indique que le délai
   est dépassé, relancez la même commande.

@@ -22,7 +22,7 @@ Selon la configuration du Mac, la première installation peut afficher une
 demande Apple pour les outils de ligne de commande ou demander le mot de passe
 de la session Mac pour Homebrew.
 
-Pour développer : `npm run dev`. Le mode dev utilise Next.js 16.4.1 et Turbopack.
+Pour développer, lancez `npm run dev`. Le mode dev utilise Next.js et Turbopack.
 Le build production utilise `.next-build`, séparé du cache `.next` du serveur dev.
 Si aucun build n’existe, le lanceur utilise le serveur de développement.
 
@@ -48,6 +48,19 @@ hors champs et dialogues. Les poignées répondent aux flèches (1 s), Maj+flèc
 (10 s), Début/Fin ; les champs temps constituent une autre alternative au drag.
 La file d’une playlist est prise en instantané au lancement ; ses modifications
 s’appliquent à la prochaine lecture.
+
+## Ajuster le son
+
+Ouvrez **Égaliseur** dans le lecteur, activez-le et choisissez un preset.
+**Réglage personnalisé** donne accès aux dix bandes, au clavier ou par saisie
+numérique. **Enregistrer sous…** conserve votre preset pour le renommer, le
+remplacer ou le supprimer plus tard.
+
+Désactivez l’égaliseur pour comparer le son tout en gardant la courbe.
+**Remettre à plat** remet les bandes à zéro. Les préférences restent dans le
+navigateur, pour l’adresse locale utilisée. Le lecteur ajuste le niveau pour
+limiter la saturation et signale les extraits lus sans effet. Les réglages
+s’appliquent uniquement à l’écoute.
 
 ## Comprendre le BPM
 

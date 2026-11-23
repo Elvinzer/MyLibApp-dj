@@ -68,6 +68,10 @@ place. You can also use this command to repair an interrupted installation.
 
 ## Troubleshooting
 
+- **An update fails in MyLib.app.** Quit the app and
+  [run the installation command again](#update-or-repair).
+  To start MyLib next time, open **MyLib.command** in
+  `~/Applications/MyLibApp`.
 - **An Apple window appears**: accept the Command Line Tools installation and
   wait for it to finish. If Terminal says it timed out, run the same command
   again.
