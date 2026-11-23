@@ -795,7 +795,7 @@ export default function Library() {
           <span className="local-dot" /> Tout reste sur votre Mac
           <p>
             Votre musique dans un seul endroit, sans cloud ni serveur
-            <br />
+            <br /> <br />
             Aucun compte nécessaire, aucune inscription, aucune pub
           </p>
         </div>
