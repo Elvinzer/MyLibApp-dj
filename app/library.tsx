@@ -794,9 +794,9 @@ export default function Library() {
         <div className="local-card">
           <span className="local-dot" /> Tout reste sur votre Mac
           <p>
-            Votre musique. Votre espace.
+            Votre musique dans un seul endroit, sans cloud ni serveur
             <br />
-            Aucun compte nécessaire.
+            Aucun compte nécessaire, aucune inscription, aucune pub
           </p>
         </div>
         <div className="sidebar-footer">
@@ -830,7 +830,7 @@ export default function Library() {
           >
             <div className="import-copy">
               <span className="eyebrow">UNE NOUVELLE DÉCOUVERTE ?</span>
-              <h2>Un lien. Et la musique est à vous.</h2>
+              <h2>Juste un lien et c'est parti</h2>
               <p>Importez depuis YouTube, SoundCloud ou Spotify.</p>
             </div>
             <form onSubmit={importLink} className="import-form">
@@ -858,7 +858,7 @@ export default function Library() {
                 </button>
               </div>
               <span className="import-hint">
-                Audio conservé localement · BPM analysés automatiquement
+                L'audio est conservé, téléchargeable et l'app récupère les BPMs.
               </span>
               <SpotifyConnection needed={spotifyNeeded} />
             </form>
